@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.departamento.client.EmpleadoCliente;
 import com.departamento.domain.Departamento;
 import com.departamento.repository.DepartamentoRepository;
 
@@ -22,6 +23,9 @@ public class DepartamentoController {
 
 	@Autowired
 	DepartamentoRepository departamentoRepository;
+
+	@Autowired
+	EmpleadoCliente empleadoCliente;
 
 	@GetMapping("/")
 	public List<Departamento> getDepartamentos() {
@@ -43,9 +47,9 @@ public class DepartamentoController {
 
 	@GetMapping("/organizacion/{organizacionId}/con-empleados")
 	public List<Departamento> getOrganizacionesConEmpleados(@PathVariable("organizacionId") Long organizacionId) {
-//		log.info("Departamento ");
+		log.info("Departamento encontrado: organizacionId={}",organizacionId);
 		List<Departamento> departamentos = departamentoRepository.getDepartamentosPorOganizacion(organizacionId);
-		log.info("departamentos {}", departamentos);
+		departamentos.forEach(d -> d.setEmpleados(empleadoCliente.buscarPorDepartamento(d.getId())));
 		return departamentos;
 	}
 

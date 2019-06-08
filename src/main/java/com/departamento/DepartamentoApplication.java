@@ -3,6 +3,7 @@ package com.departamento;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
 import com.departamento.domain.Departamento;
@@ -11,6 +12,7 @@ import com.departamento.repository.DepartamentoRepositoryImpl;
 
 @SpringBootApplication
 @EnableEurekaClient
+@EnableFeignClients
 public class DepartamentoApplication {
 
 	public static void main(String[] args) {
